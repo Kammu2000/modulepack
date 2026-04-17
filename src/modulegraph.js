@@ -1,4 +1,5 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync } from "node:fs";
+import path from "node:path";
 import { parse } from '@babel/parser';
 import traverseModule from '@babel/traverse';
 import { transformFromAst } from '@babel/core';
@@ -39,9 +40,9 @@ export class ModuleGraph {
     const entryAsset = this.createAsset(entryFilePath);
     const q = [entryAsset];
 
-    for(const asset of queue){
-      for(const dep of asset.dependencies){
-        const dirName = path.dirName(asset.filePath);
+    for (const asset of q) {
+      for (const dep of asset.dependencies) {
+        const dirName = path.dirname(asset.filePath);
         const filePath = path.join(dirName, dep);
         const childAsset = this.createAsset(filePath);
         asset.outGoingConnection[dep] = childAsset.id;
