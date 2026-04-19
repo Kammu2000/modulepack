@@ -32,7 +32,7 @@ export class ModuleGraph {
       filePath,
       code,
       dependencies,
-      outGoingConnection: {},
+      outGoingConnections: {},
     };
   }
 
@@ -45,7 +45,7 @@ export class ModuleGraph {
         const dirName = path.dirname(asset.filePath);
         const filePath = path.join(dirName, dep);
         const childAsset = this.createAsset(filePath);
-        asset.outGoingConnection[dep] = childAsset.id;
+        asset.outGoingConnections[dep] = childAsset.id;
 
         q.push(childAsset);
       }
